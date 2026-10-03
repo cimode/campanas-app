@@ -1,26 +1,104 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* No preflight: the mockup is styled against browser defaults, so we keep them for fidelity. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-barlow), "Barlow", system-ui, sans-serif;
+  --font-condensed: var(--font-barlow-condensed), "Barlow Condensed", "Arial Narrow", sans-serif;
+  --color-primary: #1b3de6;
+  --color-primary-dark: #0f27a8;
+  --color-accent: #e8176f;
+  --color-ink: #0a1033;
+  --color-muted: #5b6180;
+  --color-line: #d8dbea;
+  --color-canvas: #f4f5fb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html,
+  body {
+    margin: 0;
+    font-family: var(--font-barlow), "Barlow", system-ui, sans-serif;
+    color: #0a1033;
+    background: #f4f5fb;
+  }
+
+  a {
+    color: #1b3de6;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #0f27a8;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Shared interaction affordances the inline-styled mockup can't express. */
+.press {
+  transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
+}
+.press:hover {
+  filter: brightness(1.06);
+}
+.press:active {
+  transform: scale(0.98);
+}
+
+.field:focus,
+.field:focus-visible {
+  outline: none;
+  border-color: #1b3de6 !important;
+  box-shadow: 0 0 0 3px rgba(27, 61, 230, 0.18);
+}
+
+.navlink {
+  transition: background 120ms ease, opacity 120ms ease;
+}
+.navlink:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.rowhover {
+  transition: background 120ms ease, border-color 120ms ease;
+}
+.rowhover:hover {
+  background: #f8f9ff;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fade-up 220ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

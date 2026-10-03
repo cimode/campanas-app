@@ -1,68 +1,105 @@
-import Image from "next/image";
+import Link from "next/link";
+import { screens } from "@/lib/routes";
+import { fontCondensed, theme } from "@/lib/theme";
 
-export default function Home() {
+const groups = [
+  { title: "App móvil · líderes y amigos", kind: "mobile", note: "Flujo de entrada por QR, registro, validación y gestión de la red." },
+  { title: "Plataforma web · equipo de campaña", kind: "desktop", note: "Configuración, call center, dashboard e informes." },
+] as const;
+
+export default function Hub() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div style={{ minHeight: "100dvh", background: theme.bg }}>
+      <header style={{ background: theme.primary, color: "#FFFFFF", position: "relative", overflow: "hidden" }}>
+        <div
+          style={{ position: "absolute", right: -120, top: -140, width: 360, height: 360, borderRadius: "50%", background: theme.accent, opacity: 0.9 }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+        <div className="relative mx-auto box-border max-w-6xl px-6 py-14 sm:px-10">
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.9 }}>
+            Mockup navegable · v1
+          </span>
+          <h1
+            style={{ margin: "10px 0 12px", fontFamily: fontCondensed, fontWeight: 800, fontSize: "clamp(40px, 7vw, 72px)", lineHeight: 0.92, textTransform: "uppercase" }}
+          >
+            App de control de campañas
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p style={{ margin: 0, maxWidth: 560, fontSize: 17, lineHeight: 1.45, fontWeight: 500, opacity: 0.92 }}>
+            Todas las pantallas del mockup, conectadas entre sí con datos de ejemplo. Empieza por el QR para recorrer el flujo
+            del líder, o entra directo a la plataforma web.
           </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link
+              href="/qr"
+              className="press"
+              style={{ display: "inline-flex", alignItems: "center", minHeight: 52, padding: "0 22px", borderRadius: 14, background: "#FFFFFF", color: theme.ink, fontWeight: 700, fontSize: 16, textDecoration: "none" }}
+            >
+              Recorrer flujo móvil →
+            </Link>
+            <Link
+              href="/dashboard"
+              className="press"
+              style={{ display: "inline-flex", alignItems: "center", minHeight: 52, padding: "0 22px", borderRadius: 14, border: "2px solid rgba(255,255,255,0.7)", color: "#FFFFFF", fontWeight: 700, fontSize: 16, textDecoration: "none" }}
+            >
+              Abrir plataforma web
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+
+      <main className="mx-auto box-border flex max-w-6xl flex-col gap-12 px-6 py-12 sm:px-10">
+        {groups.map((g) => (
+          <section key={g.kind} className="flex flex-col gap-4">
+            <div>
+              <h2 style={{ margin: 0, fontFamily: fontCondensed, fontWeight: 800, fontSize: 28, textTransform: "uppercase" }}>{g.title}</h2>
+              <p style={{ margin: "4px 0 0", color: theme.muted, fontSize: 15 }}>{g.note}</p>
+            </div>
+            <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(240px, 100%), 1fr))" }}>
+              {screens
+                .filter((s) => s.kind === g.kind)
+                .map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    className="press"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 14,
+                      padding: "16px 18px",
+                      borderRadius: 16,
+                      background: "#FFFFFF",
+                      border: `1.5px solid ${theme.border}`,
+                      color: theme.ink,
+                      textDecoration: "none",
+                    }}
+                  >
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        width: 44,
+                        height: 44,
+                        borderRadius: 12,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: g.kind === "mobile" ? theme.primarySoft : "#FDE7F1",
+                        color: g.kind === "mobile" ? theme.primary : theme.accent,
+                        fontFamily: fontCondensed,
+                        fontWeight: 800,
+                        fontSize: 20,
+                      }}
+                    >
+                      {s.n}
+                    </span>
+                    <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                      <span style={{ fontWeight: 700, fontSize: 16 }}>{s.title}</span>
+                      <span style={{ fontSize: 13, color: theme.muted }}>{s.href}</span>
+                    </span>
+                  </Link>
+                ))}
+            </div>
+          </section>
+        ))}
       </main>
     </div>
   );

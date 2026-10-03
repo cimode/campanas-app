@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<title>Informe de campaña</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;font-family:'Barlow',system-ui,sans-serif;color:#0A1033;background:#F4F5FB}
+a{color:#1B3DE6}a:hover{color:#0F27A8}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F4F5FB">
+  <nav aria-label="Principal" style="flex: 0 0 232px; background: #0A1033; color: #FFFFFF; padding: 28px 16px; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 10px 22px 10px">
+      <div style="width: 36px; height: 36px; border-radius: 10px; background: {{accent}}"></div>
+      <div style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 20px; line-height: 1; text-transform: uppercase">[Candidato]</span><span style="font-size: 11px; opacity: 0.7; letter-spacing: 0.08em; text-transform: uppercase">Control de campaña</span></div>
+    </div>
+    <a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Dashboard</a>
+    <a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Contactos</a>
+    <a href="ColaAgente.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Call center</a>
+    <a href="Informe.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: {{primary}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px">Informes</a>
+    <a href="AdminConfig.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Configuración</a>
+  </nav>
+  <main style="flex: 1 1 600px; min-width: 0; padding: 36px 40px 48px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{primary}}">Fase 5 · Salida</span>
+        <h1 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.95; text-transform: uppercase">Informe de la red</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="min-height: 48px; padding: 0 18px; border-radius: 12px; background: #FFFFFF; border: 1.5px solid #0A1033; color: #0A1033; font: inherit; font-weight: 700; font-size: 15px">Exportar Excel</button>
+        <button type="button" style="min-height: 48px; padding: 0 18px; border-radius: 12px; background: {{accent}}; border: 0; color: #FFFFFF; font: inherit; font-weight: 700; font-size: 15px">Descargar PDF</button>
+      </div>
+    </div>
+    <form style="display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 16px; padding: 14px 16px">
+      <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Periodo<sc-raw-select style="height: 44px; min-width: 160px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Últimas 4 semanas</option><option>Toda la campaña</option></sc-raw-select></label>
+      <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Tipo<sc-raw-select style="height: 44px; min-width: 130px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Líderes</option><option>Amigos</option></sc-raw-select></label>
+      <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Departamento<sc-raw-select style="height: 44px; min-width: 150px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Santander</option></sc-raw-select></label>
+      <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Municipio<sc-raw-select style="height: 44px; min-width: 150px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Todos</option></sc-raw-select></label>
+      <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Color<sc-raw-select style="height: 44px; min-width: 130px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Todos</option><option>Verde</option><option>Amarillo</option><option>Rojo</option><option>Gris</option></sc-raw-select></label>
+      <button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 10px; background: {{primary}}; border: 0; color: #FFFFFF; font: inherit; font-weight: 700; font-size: 15px">Aplicar</button>
+    </form>
+    <section style="background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 18px; padding: 6px 0 0 0; display: flex; flex-direction: column; overflow: hidden">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 14px 22px 10px 22px; gap: 10px; flex-wrap: wrap">
+        <h2 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; text-transform: uppercase">Líderes · Santander · últimas 4 semanas</h2>
+        <span style="font-size: 13px; color: #5B6180">128 líderes · 1 240 referidos · 388 efectivos</span>
+      </div>
+      <div style="overflow-x: auto">
+        <sc-raw-table style="width: 100%; border-collapse: collapse; min-width: 760px">
+          <sc-raw-thead>
+            <sc-raw-tr style="background: #F4F5FB; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180; text-align: left">
+              <sc-raw-th style="padding: 10px 22px; font-weight: 700">Líder</sc-raw-th><sc-raw-th style="padding: 10px 12px; font-weight: 700">Municipio · comuna</sc-raw-th><sc-raw-th style="padding: 10px 12px; font-weight: 700">Color</sc-raw-th><sc-raw-th style="padding: 10px 12px; font-weight: 700; text-align: right">Referidos</sc-raw-th><sc-raw-th style="padding: 10px 12px; font-weight: 700; text-align: right">Validados</sc-raw-th><sc-raw-th style="padding: 10px 12px; font-weight: 700; text-align: right">Efectivos</sc-raw-th><sc-raw-th style="padding: 10px 22px; font-weight: 700">Meta 1×12</sc-raw-th>
+            </sc-raw-tr>
+          </sc-raw-thead>
+          <sc-raw-tbody>
+            <sc-for list="{{filas}}" as="f" hint-placeholder-count="8">
+              <sc-raw-tr style="border-top: 1px solid #D8DBEA; font-size: 14px">
+                <sc-raw-td style="padding: 12px 22px; font-weight: 700">{{f.nombre}}</sc-raw-td>
+                <sc-raw-td style="padding: 12px 12px; color: #5B6180">{{f.lugar}}</sc-raw-td>
+                <sc-raw-td style="padding: 12px 12px"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #FFFFFF; background: {{f.color}}; padding: 4px 10px; border-radius: 999px">{{f.estado}}</span></sc-raw-td>
+                <sc-raw-td style="padding: 12px 12px; text-align: right; font-weight: 600">{{f.ref}}</sc-raw-td>
+                <sc-raw-td style="padding: 12px 12px; text-align: right; font-weight: 600">{{f.val}}</sc-raw-td>
+                <sc-raw-td style="padding: 12px 12px; text-align: right; font-weight: 700">{{f.efe}}</sc-raw-td>
+                <sc-raw-td style="padding: 12px 22px"><span style="display: flex; align-items: center; gap: 8px"><span style="width: 110px; height: 8px; border-radius: 4px; background: #E6E9FF; overflow: hidden"><span style="display: block; height: 100%; width: {{f.w}}; background: #0A1033"></span></span><span style="font-size: 12px; color: #5B6180">{{f.pct}}</span></span></sc-raw-td>
+              </sc-raw-tr>
+            </sc-for>
+          </sc-raw-tbody>
+        </sc-raw-table>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;primary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1B3DE6&quot;,&quot;options&quot;:[&quot;#1B3DE6&quot;,&quot;#0A1033&quot;,&quot;#C8102E&quot;,&quot;#007A3D&quot;]},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8176F&quot;,&quot;options&quot;:[&quot;#E8176F&quot;,&quot;#FFB800&quot;,&quot;#00B2A9&quot;,&quot;#FF5A1F&quot;]},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  renderVals() {
+    const col = { Verde: '#15803D', Amarillo: '#B45309', Rojo: '#DC2626', Gris: '#6B7280' };
+    const row = (nombre, lugar, estado, ref, val, efe) => ({ nombre, lugar, estado, color: col[estado], ref: String(ref), val: String(val), efe: String(efe), w: Math.min(100, Math.round(efe / 12 * 100)) + '%', pct: Math.min(100, Math.round(efe / 12 * 100)) + ' %' });
+    return {
+      primary: this.props.primary ?? '#1B3DE6',
+      accent: this.props.accent ?? '#E8176F',
+      filas: [
+        row('Laura Rincón', 'Bucaramanga · C5', 'Verde', 14, 10, 7),
+        row('Pedro Mora', 'Girón · centro', 'Verde', 18, 15, 12),
+        row('Nelly Ruiz', 'Bucaramanga · C12', 'Amarillo', 9, 6, 3),
+        row('Óscar Vera', 'Bucaramanga · C4', 'Verde', 13, 12, 9),
+        row('Marcela Díaz', 'Floridablanca · C3', 'Gris', 5, 2, 0),
+        row('Hernán Lozano', 'Bucaramanga · C1', 'Amarillo', 11, 8, 4),
+        row('Paola Castro', 'Piedecuesta', 'Rojo', 6, 4, 1),
+        row('Andrés Niño', 'Girón · Poblado', 'Verde', 16, 13, 11)
+      ]
+    };
+  }
+}
+</script>
+
+
+</body></html>

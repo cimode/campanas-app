@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<title>Validación por WhatsApp</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;font-family:'Barlow',system-ui,sans-serif;color:#0A1033;background:#F4F5FB}
+a{color:#1B3DE6}a:hover{color:#0F27A8}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F5FB; padding: 60px 24px 32px 24px; gap: 24px">
+  <div style="display: flex; align-items: center; justify-content: space-between">
+    <a href="FormularioAmigo.dc.html" aria-label="Volver" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: #FFFFFF; border: 1.5px solid #D8DBEA; color: #0A1033; text-decoration: none"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg></a>
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{primary}}">Fase 2 · Validación</span>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="width: 72px; height: 72px; border-radius: 20px; background: #25D366; display: flex; align-items: center; justify-content: center; color: #FFFFFF">
+      <svg width="38" height="38" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.4L3 21l2.1-5.3A8.5 8.5 0 1 1 21 11.5z"></path><path d="M9 10c.5 2 2 3.5 4 4l1.5-1.5 2 1-.5 2c-4 .5-8-3.5-7.5-7.5l2-.5 1 2z"></path></svg>
+    </div>
+    <h1 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.95; text-transform: uppercase">Te enviamos un código por WhatsApp</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 1.45; color: #5B6180">Lo mandamos al <strong style="color: #0A1033">+57 300 ••• 4421</strong>. Escríbelo aquí para confirmar que el número es tuyo.</p>
+  </div>
+  <form style="display: flex; flex-direction: column; gap: 10px">
+    <label for="c1" style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #5B6180">Código de 6 dígitos</label>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+      <input id="c1" type="text" inputmode="numeric" maxlength="1" value="4" aria-label="Dígito 1" style="height: 60px; text-align: center; border: 2px solid #0A1033; border-radius: 12px; background: #FFFFFF; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; color: #0A1033; min-width: 0">
+      <input type="text" inputmode="numeric" maxlength="1" value="8" aria-label="Dígito 2" style="height: 60px; text-align: center; border: 2px solid #0A1033; border-radius: 12px; background: #FFFFFF; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; color: #0A1033; min-width: 0">
+      <input type="text" inputmode="numeric" maxlength="1" value="1" aria-label="Dígito 3" style="height: 60px; text-align: center; border: 2px solid #0A1033; border-radius: 12px; background: #FFFFFF; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; color: #0A1033; min-width: 0">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 4" style="height: 60px; text-align: center; border: 2px solid {{primary}}; border-radius: 12px; background: #FFFFFF; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; color: #0A1033; min-width: 0">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 5" style="height: 60px; text-align: center; border: 1.5px solid #D8DBEA; border-radius: 12px; background: #FFFFFF; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; color: #0A1033; min-width: 0">
+      <input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 6" style="height: 60px; text-align: center; border: 1.5px solid #D8DBEA; border-radius: 12px; background: #FFFFFF; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; color: #0A1033; min-width: 0">
+    </div>
+  </form>
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <a href="PerfilLider.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 14px; background: {{primary}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px">Confirmar código</a>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <button type="button" style="min-height: 48px; border-radius: 12px; background: #FFFFFF; border: 1.5px solid #D8DBEA; font: inherit; font-weight: 600; font-size: 15px; color: #0A1033">Reenviar código</button>
+      <button type="button" style="min-height: 48px; border-radius: 12px; background: #FFFFFF; border: 1.5px solid #D8DBEA; font: inherit; font-weight: 600; font-size: 15px; color: #0A1033">Corregir número</button>
+    </div>
+  </div>
+  <div style="margin-top: auto; display: flex; gap: 12px; align-items: flex-start; background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 16px; padding: 14px 16px">
+    <div style="width: 10px; height: 10px; border-radius: 50%; background: #9CA3AF; margin-top: 5px; flex-shrink: 0"></div>
+    <p style="margin: 0; font-size: 13px; line-height: 1.45; color: #5B6180">Mientras no confirmes, tu contacto queda en <strong style="color: #0A1033">estado gris · sin validar</strong> y no suma a la meta del líder.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;primary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1B3DE6&quot;,&quot;options&quot;:[&quot;#1B3DE6&quot;,&quot;#0A1033&quot;,&quot;#C8102E&quot;,&quot;#007A3D&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { primary: this.props.primary ?? '#1B3DE6' };
+  }
+}
+</script>
+
+
+</body></html>

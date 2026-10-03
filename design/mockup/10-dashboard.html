@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<title>Dashboard del candidato</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;font-family:'Barlow',system-ui,sans-serif;color:#0A1033;background:#F4F5FB}
+a{color:#1B3DE6}a:hover{color:#0F27A8}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F4F5FB">
+  <nav aria-label="Principal" style="flex: 0 0 232px; background: #0A1033; color: #FFFFFF; padding: 28px 16px; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 10px 22px 10px">
+      <div style="width: 36px; height: 36px; border-radius: 10px; background: {{accent}}"></div>
+      <div style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 20px; line-height: 1; text-transform: uppercase">[Candidato]</span><span style="font-size: 11px; opacity: 0.7; letter-spacing: 0.08em; text-transform: uppercase">Control de campaña</span></div>
+    </div>
+    <a href="Dashboard.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: {{primary}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px">Dashboard</a>
+    <a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Contactos</a>
+    <a href="ColaAgente.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Call center</a>
+    <a href="Informe.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Informes</a>
+    <a href="AdminConfig.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Configuración</a>
+  </nav>
+  <main style="flex: 1 1 600px; min-width: 0; padding: 36px 40px 48px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{primary}}">Fase 5 · Consolidación</span>
+        <h1 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.95; text-transform: uppercase">Dashboard del candidato</h1>
+      </div>
+      <form style="display: flex; flex-wrap: wrap; gap: 8px">
+        <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Tipo<sc-raw-select style="height: 44px; min-width: 140px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Todos</option><option>Líderes</option><option>Amigos</option></sc-raw-select></label>
+        <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Departamento<sc-raw-select style="height: 44px; min-width: 150px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Santander</option></sc-raw-select></label>
+        <label style="display: flex; flex-direction: column; gap: 3px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Municipio<sc-raw-select style="height: 44px; min-width: 150px; padding: 0 12px; border: 1.5px solid #D8DBEA; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #0A1033"><option>Todos</option><option>Bucaramanga</option><option>Girón</option></sc-raw-select></label>
+      </form>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 14px">
+      <sc-for list="{{kpis}}" as="k" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 16px; background: {{k.bg}}; color: {{k.fg}}; border: 1.5px solid {{k.borde}}">
+          <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85">{{k.label}}</span>
+          <span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 44px; line-height: 1">{{k.valor}}</span>
+          <span style="font-size: 13px; opacity: 0.85">{{k.sub}}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 20px; align-items: start">
+      <section style="background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+        <h2 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; text-transform: uppercase">Estado de la red</h2>
+        <div style="display: flex; height: 28px; border-radius: 8px; overflow: hidden" role="img" aria-label="Verde 46 %, amarillo 18 %, gris 27 %, rojo 9 %">
+          <div style="width: 46%; background: #15803D"></div><div style="width: 18%; background: #FACC15"></div><div style="width: 27%; background: #6B7280"></div><div style="width: 9%; background: #DC2626"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); gap: 10px">
+          <div style="display: flex; align-items: center; gap: 8px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #15803D"></span><span style="font-size: 14px"><strong>46 %</strong> efectivos</span></div>
+          <div style="display: flex; align-items: center; gap: 8px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #FACC15"></span><span style="font-size: 14px"><strong>18 %</strong> reprogramar</span></div>
+          <div style="display: flex; align-items: center; gap: 8px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #6B7280"></span><span style="font-size: 14px"><strong>27 %</strong> sin gestionar</span></div>
+          <div style="display: flex; align-items: center; gap: 8px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #DC2626"></span><span style="font-size: 14px"><strong>9 %</strong> no interesados</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 6px; border-top: 1.5px solid #D8DBEA">
+          <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Crecimiento de la red · últimas 8 semanas</span>
+          <div style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; align-items: end; height: 120px" role="img" aria-label="Registros por semana, creciendo de 40 a 310">
+            <div style="height: 13%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 20%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 28%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 42%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 55%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 70%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 84%; background: #C4C8DA; border-radius: 4px 4px 0 0"></div><div style="height: 100%; background: {{primary}}; border-radius: 4px 4px 0 0"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5B6180"><span>Sem 1</span><span>Sem 8 · 310 registros</span></div>
+        </div>
+      </section>
+      <section style="background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px">
+          <h2 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; text-transform: uppercase">Territorio</h2>
+          <span style="font-size: 12px; color: #5B6180">Mapa de calor por comuna</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px" role="img" aria-label="Comunas por cantidad de contactos, de clara a oscura">
+          <sc-for list="{{comunas}}" as="c" hint-placeholder-count="12">
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 72px; padding: 10px; border-radius: 10px; background: {{c.bg}}; color: {{c.fg}}"><span style="font-size: 12px; font-weight: 700">{{c.nombre}}</span><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; line-height: 1">{{c.n}}</span></div>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 6px; border-top: 1.5px solid #D8DBEA">
+          <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Puestos de votación con más amigos efectivos</span>
+          <sc-for list="{{puestos}}" as="p" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 10px"><span style="flex-grow: 1; font-size: 14px; font-weight: 600">{{p.nombre}}</span><span style="width: 120px; height: 8px; border-radius: 4px; background: #E6E9FF; overflow: hidden"><span style="display: block; height: 100%; width: {{p.w}}; background: #15803D"></span></span><span style="width: 32px; text-align: right; font-weight: 700; font-size: 14px">{{p.n}}</span></div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+    <section style="background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 18px; padding: 18px 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px">
+      <h2 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; text-transform: uppercase">Gestiones</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; flex-grow: 1">
+        <span style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 28px; line-height: 1">412</span><span style="font-size: 12px; color: #5B6180">Llamadas</span></span>
+        <span style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 28px; line-height: 1">1 038</span><span style="font-size: 12px; color: #5B6180">WhatsApps</span></span>
+        <span style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 28px; line-height: 1">276</span><span style="font-size: 12px; color: #5B6180">Notificaciones a líderes</span></span>
+        <span style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 28px; line-height: 1">3</span><span style="font-size: 12px; color: #5B6180">Amigos por aprobar como líder</span></span>
+      </div>
+      <a href="Informe.dc.html" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 12px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px">Generar informe</a>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;primary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1B3DE6&quot;,&quot;options&quot;:[&quot;#1B3DE6&quot;,&quot;#0A1033&quot;,&quot;#C8102E&quot;,&quot;#007A3D&quot;]},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8176F&quot;,&quot;options&quot;:[&quot;#E8176F&quot;,&quot;#FFB800&quot;,&quot;#00B2A9&quot;,&quot;#FF5A1F&quot;]},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  renderVals() {
+    const heat = (n) => n >= 150 ? { bg: '#0A1033', fg: '#FFFFFF' } : n >= 90 ? { bg: '#1B3DE6', fg: '#FFFFFF' } : n >= 40 ? { bg: '#8FA0F5', fg: '#0A1033' } : { bg: '#E6E9FF', fg: '#0A1033' };
+    const comunas = [['C1', 62], ['C2', 38], ['C3', 95], ['C4', 120], ['C5', 184], ['C6', 71], ['C7', 22], ['C8', 44], ['C9', 15], ['C10', 58], ['C11', 33], ['C12', 101]].map(([nombre, n]) => ({ nombre, n: String(n), ...heat(n) }));
+    return {
+      primary: this.props.primary ?? '#1B3DE6',
+      accent: this.props.accent ?? '#E8176F',
+      kpis: [
+        { label: 'Líderes', valor: '128', sub: '+11 esta semana', bg: '#0A1033', fg: '#FFFFFF', borde: '#0A1033' },
+        { label: 'Referidos', valor: '1 240', sub: 'desde QR y enlaces', bg: '#FFFFFF', fg: '#0A1033', borde: '#D8DBEA' },
+        { label: 'Validados', valor: '843', sub: '68 % de referidos', bg: '#FFFFFF', fg: '#0A1033', borde: '#D8DBEA' },
+        { label: 'Amigos efectivos', valor: '388', sub: '46 % de validados', bg: '#15803D', fg: '#FFFFFF', borde: '#15803D' },
+        { label: 'Líderes en meta', valor: '31', sub: 'ya llegaron a 1×12', bg: '#FFFFFF', fg: '#0A1033', borde: '#D8DBEA' }
+      ],
+      comunas,
+      puestos: [
+        { nombre: 'Colegio Santander', n: '42', w: '100%' },
+        { nombre: 'I.E. Las Américas', n: '31', w: '74%' },
+        { nombre: 'Coliseo Girón', n: '19', w: '45%' }
+      ]
+    };
+  }
+}
+</script>
+
+
+</body></html>

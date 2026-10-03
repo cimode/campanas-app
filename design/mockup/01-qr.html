@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<title>Escanea QR · Entrada a la red</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;font-family:'Barlow',system-ui,sans-serif;color:#0A1033;background:#F4F5FB}
+a{color:#1B3DE6}a:hover{color:#0F27A8}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: {{primary}}; overflow: hidden; position: relative">
+  <div style="position: absolute; right: -120px; top: -80px; width: 320px; height: 320px; border-radius: 50%; background: {{accent}}; opacity: 0.9"></div>
+  <div style="position: absolute; left: -90px; top: 240px; width: 220px; height: 220px; border-radius: 50%; border: 28px solid #FFFFFF; opacity: 0.12; box-sizing: border-box"></div>
+  <div style="position: relative; padding: 72px 28px 0 28px; display: flex; flex-direction: column; gap: 18px; color: #FFFFFF">
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.9">
+      <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V4h3M21 7V4h-3M3 17v3h3M21 17v3h-3"></path><rect x="7" y="7" width="4" height="4"></rect><rect x="13" y="7" width="4" height="4"></rect><rect x="7" y="13" width="4" height="4"></rect><path d="M13 13h4v4"></path></svg>
+      <span>QR escaneado</span>
+    </div>
+    <h1 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 64px; line-height: 0.92; text-transform: uppercase; letter-spacing: -0.01em">Súmate a la red de [NOMBRE DEL CANDIDATO]</h1>
+    <p style="margin: 0; font-size: 17px; line-height: 1.4; font-weight: 500; max-width: 300px">Llegaste desde el QR de <strong>[EVENTO O ZONA]</strong>. Toma menos de un minuto.</p>
+  </div>
+  <div style="position: relative; margin-top: auto; background: #FFFFFF; border-radius: 28px 28px 0 0; padding: 28px 24px 36px 24px; display: flex; flex-direction: column; gap: 14px">
+    <h2 style="margin: 0 0 6px 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">¿Vienes referido por un líder?</h2>
+    <a href="FormularioAmigo.dc.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 14px 20px; box-sizing: border-box; border-radius: 14px; background: {{primary}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px">
+      <span style="display: flex; flex-direction: column; gap: 2px"><span>Sí, me invitó un líder</span><span style="font-size: 13px; font-weight: 500; opacity: 0.85">Formulario corto de amigo</span></span>
+      <svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+    <a href="RegistroLider.dc.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 14px 20px; box-sizing: border-box; border-radius: 14px; background: #FFFFFF; border: 2px solid #0A1033; color: #0A1033; text-decoration: none; font-weight: 700; font-size: 18px">
+      <span style="display: flex; flex-direction: column; gap: 2px"><span>No, quiero ser líder</span><span style="font-size: 13px; font-weight: 500; color: #5B6180">Registro de líder · meta 1×12</span></span>
+      <svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+    <p style="margin: 8px 0 0 0; font-size: 12px; line-height: 1.45; color: #5B6180; text-align: center">Al continuar aceptas los <a href="#terminos">términos y la política de datos</a>.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;primary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1B3DE6&quot;,&quot;options&quot;:[&quot;#1B3DE6&quot;,&quot;#0A1033&quot;,&quot;#C8102E&quot;,&quot;#007A3D&quot;]},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8176F&quot;,&quot;options&quot;:[&quot;#E8176F&quot;,&quot;#FFB800&quot;,&quot;#00B2A9&quot;,&quot;#FF5A1F&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { primary: this.props.primary ?? '#1B3DE6', accent: this.props.accent ?? '#E8176F' };
+  }
+}
+</script>
+
+
+</body></html>

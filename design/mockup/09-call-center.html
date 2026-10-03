@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<title>Call center · Cola del agente y gestión</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;font-family:'Barlow',system-ui,sans-serif;color:#0A1033;background:#F4F5FB}
+a{color:#1B3DE6}a:hover{color:#0F27A8}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F4F5FB">
+  <nav aria-label="Principal" style="flex: 0 0 232px; background: #0A1033; color: #FFFFFF; padding: 28px 16px; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 10px 22px 10px">
+      <div style="width: 36px; height: 36px; border-radius: 10px; background: {{accent}}"></div>
+      <div style="display: flex; flex-direction: column"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 20px; line-height: 1; text-transform: uppercase">[Candidato]</span><span style="font-size: 11px; opacity: 0.7; letter-spacing: 0.08em; text-transform: uppercase">Control de campaña</span></div>
+    </div>
+    <a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Dashboard</a>
+    <a href="Dashboard.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Contactos</a>
+    <a href="ColaAgente.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: {{primary}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px">Call center</a>
+    <a href="Informe.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Informes</a>
+    <a href="AdminConfig.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; opacity: 0.75">Configuración</a>
+  </nav>
+  <main style="flex: 1 1 600px; min-width: 0; padding: 36px 40px 48px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{primary}}">Fase 4 · Gestión y seguimiento</span>
+        <h1 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.95; text-transform: uppercase">Cola del agente</h1>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 12px; padding: 8px 14px">
+        <span style="width: 34px; height: 34px; border-radius: 50%; background: #0A1033; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px">MP</span>
+        <span style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 14px">Agente: Mariana P.</span><span style="font-size: 12px; color: #5B6180">23 gestiones hoy · 14 pendientes</span></span>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+      <section style="flex: 1 1 300px; min-width: 0; background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+          <h2 style="margin: 0; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; text-transform: uppercase">Pendientes</h2>
+          <span style="font-size: 12px; font-weight: 700; color: #FFFFFF; background: #6B7280; padding: 5px 10px; border-radius: 999px">14 en gris</span>
+        </div>
+        <sc-for list="{{cola}}" as="k" hint-placeholder-count="5">
+          <button type="button" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1.5px solid {{k.borde}}; background: {{k.fondo}}; border-radius: 12px; min-height: 56px; box-sizing: border-box; text-align: left; font: inherit; color: #0A1033">
+            <span style="width: 12px; height: 12px; border-radius: 50%; background: {{k.color}}; flex-shrink: 0"></span>
+            <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 700; font-size: 15px">{{k.nombre}}</span><span style="font-size: 12px; color: #5B6180">{{k.detalle}}</span></span>
+            <span style="font-size: 12px; font-weight: 600; color: #5B6180">{{k.tiempo}}</span>
+          </button>
+        </sc-for>
+      </section>
+      <section style="flex: 3 1 560px; min-width: 0; background: #FFFFFF; border: 1.5px solid #D8DBEA; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 14px">
+            <span style="width: 56px; height: 56px; border-radius: 50%; background: #E6E9FF; color: #0A1033; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 22px; border: 4px solid #6B7280; box-sizing: border-box">JP</span>
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 28px; line-height: 1; text-transform: uppercase">Jorge Pinzón</span>
+              <span style="font-size: 13px; color: #5B6180">Amigo de <strong style="color: #0A1033">Laura Rincón</strong> · validado hace 1 día · Bucaramanga</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px">
+            <button type="button" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 12px; background: #0A1033; color: #FFFFFF; border: 0; font: inherit; font-weight: 700; font-size: 15px"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6.3 6.3l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"></path></svg>Llamar</button>
+            <button type="button" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 12px; background: #25D366; color: #FFFFFF; border: 0; font: inherit; font-weight: 700; font-size: 15px"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.4L3 21l2.1-5.3A8.5 8.5 0 1 1 21 11.5z"></path></svg>WhatsApp</button>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px">
+          <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: #F4F5FB; border-radius: 12px"><span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Teléfono</span><span style="font-weight: 600; font-size: 15px">+57 301 555 0199</span></div>
+          <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: #F4F5FB; border-radius: 12px"><span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Cédula</span><span style="font-weight: 600; font-size: 15px">1 098 ••• 221</span></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; background: #FFF4D6; border: 1.5px solid #FACC15; border-radius: 12px"><span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Puesto de votación</span><span style="font-weight: 600; font-size: 15px">Colegio Santander · mesa 12</span><label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600"><input type="checkbox" style="width: 20px; height: 20px; accent-color: #1B3DE6">Verificado con el contacto</label></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Resultado de la gestión</span>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 10px">
+            <button type="button" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 84px; padding: 14px; border-radius: 14px; background: #15803D; color: #FFFFFF; border: 0; font: inherit; text-align: left"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; line-height: 1; text-transform: uppercase">Verde</span><span style="font-size: 13px; font-weight: 500">Interesado · amigo efectivo</span></button>
+            <button type="button" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 84px; padding: 14px; border-radius: 14px; background: #FACC15; color: #0A1033; border: 0; font: inherit; text-align: left"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; line-height: 1; text-transform: uppercase">Amarillo</span><span style="font-size: 13px; font-weight: 500">Más o menos · reprogramar</span></button>
+            <button type="button" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 84px; padding: 14px; border-radius: 14px; background: #DC2626; color: #FFFFFF; border: 0; font: inherit; text-align: left"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; line-height: 1; text-transform: uppercase">Rojo</span><span style="font-size: 13px; font-weight: 500">No interesado · sale de la cola</span></button>
+            <button type="button" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 84px; padding: 14px; border-radius: 14px; background: #6B7280; color: #FFFFFF; border: 0; font: inherit; text-align: left"><span style="font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 24px; line-height: 1; text-transform: uppercase">Gris</span><span style="font-size: 13px; font-weight: 500">No efectiva · reintentar</span></button>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 14px; align-items: start">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="nota" style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Nota de la gestión</label>
+            <textarea id="nota" rows="3" placeholder="Qué dijo, cuándo volver a llamar…" style="padding: 12px 14px; border: 1.5px solid #D8DBEA; border-radius: 12px; font: inherit; font-size: 15px; color: #0A1033; resize: vertical"></textarea>
+            <button type="button" style="align-self: flex-start; min-height: 44px; padding: 0 18px; border-radius: 12px; background: {{primary}}; color: #FFFFFF; border: 0; font: inherit; font-weight: 700; font-size: 15px">Guardar gestión y pasar al siguiente</button>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #5B6180">Trazabilidad</span>
+            <sc-for list="{{traza}}" as="t" hint-placeholder-count="3">
+              <div style="display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #D8DBEA">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: {{t.color}}; margin-top: 5px; flex-shrink: 0"></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600; font-size: 14px">{{t.texto}}</span><span style="font-size: 12px; color: #5B6180">{{t.meta}}</span></span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;primary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1B3DE6&quot;,&quot;options&quot;:[&quot;#1B3DE6&quot;,&quot;#0A1033&quot;,&quot;#C8102E&quot;,&quot;#007A3D&quot;]},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E8176F&quot;,&quot;options&quot;:[&quot;#E8176F&quot;,&quot;#FFB800&quot;,&quot;#00B2A9&quot;,&quot;#FF5A1F&quot;]},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      primary: this.props.primary ?? '#1B3DE6',
+      accent: this.props.accent ?? '#E8176F',
+      cola: [
+        { nombre: 'Jorge Pinzón', detalle: 'Líder: Laura Rincón · Comuna 5', tiempo: 'ahora', color: '#6B7280', borde: '#1B3DE6', fondo: '#E6E9FF' },
+        { nombre: 'Diana Suárez', detalle: 'Líder: Laura Rincón · reprogramada', tiempo: '14:30', color: '#B45309', borde: '#D8DBEA', fondo: '#FFFFFF' },
+        { nombre: 'Andrés Quintero', detalle: 'Líder: Pedro Mora · Girón', tiempo: '1 d', color: '#6B7280', borde: '#D8DBEA', fondo: '#FFFFFF' },
+        { nombre: 'Sofía Herrera', detalle: 'Líder: Pedro Mora · Girón', tiempo: '1 d', color: '#6B7280', borde: '#D8DBEA', fondo: '#FFFFFF' },
+        { nombre: 'Camilo Ortiz', detalle: 'Líder: Nelly Ruiz · Comuna 12', tiempo: '2 d', color: '#6B7280', borde: '#D8DBEA', fondo: '#FFFFFF' }
+      ],
+      traza: [
+        { texto: 'Mensaje de validación confirmado', meta: 'Sistema · WhatsApp · ayer 18:04', color: '#1B3DE6' },
+        { texto: 'Registrado por enlace del líder', meta: 'Laura Rincón · enlace · ayer 17:51', color: '#6B7280' }
+      ]
+    };
+  }
+}
+</script>
+
+
+</body></html>
