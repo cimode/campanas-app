@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# original design bundle (kept locally, not published)
+/App de control de campañas*.html
