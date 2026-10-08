@@ -42,3 +42,6 @@ next-env.d.ts
 
 # original design bundle (kept locally, not published)
 /App de control de campañas*.html
+
+# copied from node_modules by postinstall (MapLibre web worker)
+/public/maplibre/

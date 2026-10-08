@@ -1,11 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, type CSSProperties } from "react";
+import { useMemo, useState, type CSSProperties, type FormEvent } from "react";
 import { useToast } from "@/components/Toast";
 import { routes } from "@/lib/routes";
 import { fontCondensed, theme } from "@/lib/theme";
-import { getDashboard, municipios, tipos, type Municipio, type Tipo } from "./data";
+import { departamentos } from "@/lib/geo/divipola";
+import {
+  conteosHijos,
+  DEFAULT_REGION,
+  fmt,
+  getDashboard,
+  municipiosDe,
+  nivelDe,
+  nombreRegion,
+  tipos,
+  zonasCiudad,
+  type Region,
+  type Tipo,
+} from "./data";
+import { HEAT_RAMP, TerritorioMap, type Ubicacion } from "./TerritorioMap";
+
+type Geocodificado = {
+  direccion: string;
+  lat: number;
+  lng: number;
+  precision: string;
+  barrio: string | null;
+  municipio: string | null;
+  departamento: string | null;
+  pais: string;
+  divipola: { municipio: string; departamento: string } | null;
+};
 
 const labelStyle: CSSProperties = {
   display: "flex",
@@ -65,12 +91,51 @@ const estadoAria = ["Verde", "amarillo", "gris", "rojo"];
 export function DashboardScreen() {
   const toast = useToast();
   const [tipo, setTipo] = useState<Tipo>("Todos");
-  const [municipio, setMunicipio] = useState<Municipio>("Todos");
-  const data = useMemo(() => getDashboard(tipo, municipio), [tipo, municipio]);
-  const viewKey = `${tipo}-${municipio}`;
+  const [region, setRegion] = useState<Region>(DEFAULT_REGION);
+  const [direccion, setDireccion] = useState("");
+  const [buscando, setBuscando] = useState(false);
+  const [geo, setGeo] = useState<Geocodificado | null>(null);
+  const data = useMemo(() => getDashboard(tipo, region), [tipo, region]);
+  const conteos = useMemo(() => conteosHijos(tipo, region), [tipo, region]);
+  const ranking = useMemo(() => [...conteos].sort((a, b) => b.n - a.n).slice(0, 5), [conteos]);
+  const ubicacion = useMemo<Ubicacion | null>(
+    () => (geo ? { lng: geo.lng, lat: geo.lat, label: geo.direccion } : null),
+    [geo],
+  );
+  const nivel = nivelDe(region);
+  const viewKey = `${tipo}-${region.dpto}-${region.mpio}`;
+  const hijos = nivel === "pais" ? "departamento" : nivel === "departamento" ? "municipio" : (region.mpio && zonasCiudad[region.mpio]?.label) || "zona";
+  const maxRanking = Math.max(1, ranking[0]?.n ?? 0);
 
-  const announce = (t: Tipo, m: Municipio) =>
-    toast(`Mostrando ${t === "Todos" ? "toda la red" : t.toLowerCase()} · ${m === "Todos" ? "Santander" : m}`);
+  const announce = (t: Tipo, r: Region) =>
+    toast(`Mostrando ${t === "Todos" ? "toda la red" : t.toLowerCase()} · ${nombreRegion(r)}`);
+
+  function cambiarRegion(r: Region) {
+    setRegion(r);
+    announce(tipo, r);
+  }
+
+  async function ubicar(e: FormEvent) {
+    e.preventDefault();
+    const q = direccion.trim();
+    if (!q) return;
+    setBuscando(true);
+    try {
+      const res = await fetch(`/api/geocode?q=${encodeURIComponent(q)}`);
+      const body = await res.json();
+      if (!res.ok) {
+        toast(body.error ?? "No se pudo ubicar la dirección", "error");
+        return;
+      }
+      const g = body as Geocodificado;
+      setGeo(g);
+      if (g.divipola) setRegion({ dpto: g.divipola.departamento, mpio: g.divipola.municipio });
+    } catch {
+      toast("No se pudo ubicar la dirección", "error");
+    } finally {
+      setBuscando(false);
+    }
+  }
 
   return (
     <main
@@ -96,7 +161,7 @@ export function DashboardScreen() {
               onChange={(e) => {
                 const v = e.target.value as Tipo;
                 setTipo(v);
-                announce(v, municipio);
+                announce(v, region);
               }}
             >
               {tipos.map((t) => (
@@ -106,8 +171,18 @@ export function DashboardScreen() {
           </label>
           <label style={labelStyle}>
             Departamento
-            <select className="field" style={selectStyle(150)} defaultValue="Santander">
-              <option>Santander</option>
+            <select
+              className="field"
+              style={selectStyle(170)}
+              value={region.dpto ?? ""}
+              onChange={(e) => cambiarRegion({ dpto: e.target.value || null, mpio: null })}
+            >
+              <option value="">Todo el país</option>
+              {departamentos.map((d) => (
+                <option key={d.code} value={d.code}>
+                  {d.name}
+                </option>
+              ))}
             </select>
           </label>
           <label style={labelStyle}>
@@ -115,16 +190,17 @@ export function DashboardScreen() {
             <select
               className="field"
               style={selectStyle(150)}
-              value={municipio}
-              onChange={(e) => {
-                const v = e.target.value as Municipio;
-                setMunicipio(v);
-                announce(tipo, v);
-              }}
+              value={region.mpio ?? ""}
+              disabled={!region.dpto}
+              onChange={(e) => cambiarRegion({ dpto: region.dpto, mpio: e.target.value || null })}
             >
-              {municipios.map((m) => (
-                <option key={m}>{m}</option>
-              ))}
+              <option value="">Todos</option>
+              {region.dpto &&
+                municipiosDe(region.dpto).map((m) => (
+                  <option key={m.code} value={m.code}>
+                    {m.name}
+                  </option>
+                ))}
             </select>
           </label>
         </form>
@@ -205,37 +281,85 @@ export function DashboardScreen() {
         </section>
 
         <section style={{ ...card, gap: 14 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
             <h2 style={h2Style}>Territorio</h2>
-            <span style={{ fontSize: 12, color: "#5B6180" }}>{data.zonaLabel}</span>
+            <span style={{ fontSize: 12, color: "#5B6180" }}>Mapa de calor por {hijos}</span>
           </div>
-          <div
-            key={`zonas-${viewKey}`}
-            className="fade-up"
-            style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 8 }}
-            role="img"
-            aria-label={`${municipio === "Girón" ? "Sectores" : "Comunas"} por cantidad de contactos, de clara a oscura`}
-          >
-            {data.zonas.map((c) => (
-              <div
-                key={c.nombre}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  minHeight: 72,
-                  padding: 10,
-                  borderRadius: 10,
-                  background: c.bg,
-                  color: c.fg,
-                  minWidth: 0,
-                }}
-              >
-                <span style={{ fontSize: 12, fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.nombre}</span>
-                <span style={{ fontFamily: fontCondensed, fontWeight: 800, fontSize: 24, lineHeight: 1 }}>{c.n}</span>
-              </div>
+          <nav aria-label="Nivel del mapa" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600 }}>
+            {[
+              { label: "Colombia", r: { dpto: null, mpio: null } as Region, on: nivel !== "pais" },
+              ...(region.dpto ? [{ label: nombreRegion({ dpto: region.dpto, mpio: null }), r: { dpto: region.dpto, mpio: null } as Region, on: nivel === "municipio" }] : []),
+              ...(region.mpio ? [{ label: nombreRegion(region), r: region, on: false }] : []),
+            ].map((c, i) => (
+              <span key={c.label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {i > 0 && <span style={{ color: "#9CA3AF" }}>›</span>}
+                {c.on ? (
+                  <button type="button" onClick={() => cambiarRegion(c.r)} style={{ border: 0, background: "none", padding: 0, font: "inherit", color: theme.primary, textDecoration: "underline" }}>
+                    {c.label}
+                  </button>
+                ) : (
+                  <span aria-current="location">{c.label}</span>
+                )}
+              </span>
             ))}
+          </nav>
+          <TerritorioMap tipo={tipo} region={region} conteos={conteos} ubicacion={ubicacion} onSelect={cambiarRegion} />
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#5B6180" }}>
+            <span>Menos</span>
+            <span aria-hidden="true" style={{ flexGrow: 1, maxWidth: 180, height: 8, borderRadius: 4, background: `linear-gradient(90deg, ${HEAT_RAMP.join(", ")})` }} />
+            <span>Más referidos</span>
+            <span style={{ marginLeft: "auto" }}>{nivel === "municipio" ? "Cada punto es un referido" : "Clic en una región para acercar"}</span>
           </div>
+          {ranking.length > 0 && (
+            <div key={`ranking-${viewKey}`} className="fade-up" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <span style={eyebrowSmall}>Top 5 por {hijos}</span>
+              {ranking.map((c) => (
+                <div key={c.code} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ flexGrow: 1, fontSize: 14, fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.nombre}</span>
+                  <span style={{ width: 120, flexShrink: 0, height: 8, borderRadius: 4, background: "#E6E9FF", overflow: "hidden" }}>
+                    <span style={{ display: "block", height: "100%", width: `${Math.round((c.n / maxRanking) * 100)}%`, background: theme.primary, transition: "width 300ms ease" }} />
+                  </span>
+                  <span style={{ width: 44, textAlign: "right", fontWeight: 700, fontSize: 14 }}>{fmt(c.n)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <form onSubmit={ubicar} style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 6, borderTop: "1.5px solid #D8DBEA" }}>
+            <label htmlFor="ubicar-direccion" style={eyebrowSmall}>
+              Ubicar una dirección
+            </label>
+            <div style={{ display: "flex", gap: 8 }}>
+              <input
+                id="ubicar-direccion"
+                className="field"
+                type="text"
+                placeholder="Cra 33 # 44-21, Bucaramanga, Santander"
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+                style={{ ...selectStyle(0), flexGrow: 1, minWidth: 0, fontWeight: 500 }}
+              />
+              <button
+                type="submit"
+                className="press"
+                disabled={buscando || !direccion.trim()}
+                style={{ height: 44, padding: "0 16px", borderRadius: 10, border: 0, background: theme.ink, color: "#FFFFFF", font: "inherit", fontWeight: 700, fontSize: 14, opacity: buscando ? 0.7 : 1 }}
+              >
+                {buscando ? "Ubicando…" : "Ubicar"}
+              </button>
+            </div>
+            {geo && (
+              <div className="fade-up" style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 13 }}>
+                <span style={{ fontWeight: 700 }}>
+                  {[geo.barrio ?? "Barrio no identificado", geo.municipio, geo.departamento, geo.pais].filter(Boolean).join(" › ")}
+                </span>
+                <span style={{ color: "#5B6180" }}>
+                  {geo.direccion}
+                  {geo.divipola && ` · DIVIPOLA ${geo.divipola.municipio}`}
+                  {!["ROOFTOP", "RANGE_INTERPOLATED"].includes(geo.precision) && " · ubicación aproximada"}
+                </span>
+              </div>
+            )}
+          </form>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 6, borderTop: "1.5px solid #D8DBEA" }}>
             <span style={eyebrowSmall}>Puestos de votación con más amigos efectivos</span>
             {data.puestos.map((p) => (

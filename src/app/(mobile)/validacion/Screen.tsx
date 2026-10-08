@@ -134,7 +134,7 @@ export function Screen() {
       toast("Demo: completamos el código por ti.", "info");
     }
     toast("Número validado. ¡Ya sumas a la meta del líder!", "success");
-    setTimeout(() => router.push(routes.perfil), 600);
+    setTimeout(() => router.push(routes.perfilAmigo), 600);
   }
 
   function resend() {

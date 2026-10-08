@@ -5,6 +5,7 @@ export const routes = {
   registro: "/registro", // RegistroLider.dc.html
   amigo: "/amigo", // FormularioAmigo.dc.html
   validacion: "/validacion", // Validacion.dc.html
+  perfilAmigo: "/amigo/perfil",
   perfil: "/lider", // PerfilLider.dc.html
   wallet: "/lider/wallet", // TarjetaWallet.dc.html
   agregar: "/lider/agregar", // AgregarAmigo.dc.html
@@ -20,6 +21,7 @@ export const screens = [
   { n: "02", title: "Registro de líder", href: routes.registro, kind: "mobile" },
   { n: "03", title: "Formulario de amigo", href: routes.amigo, kind: "mobile" },
   { n: "04", title: "Validación WhatsApp", href: routes.validacion, kind: "mobile" },
+  { n: "4B", title: "Perfil del amigo", href: routes.perfilAmigo, kind: "mobile" },
   { n: "05", title: "Perfil del líder", href: routes.perfil, kind: "mobile" },
   { n: "06", title: "Tarjeta de wallet", href: routes.wallet, kind: "mobile" },
   { n: "07", title: "Agregar amigos", href: routes.agregar, kind: "mobile" },

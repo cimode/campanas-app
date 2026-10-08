@@ -6,6 +6,7 @@ import { useEffect, useState, type CSSProperties, type FormEvent } from "react";
 import { useToast } from "@/components/Toast";
 import { fontCondensed, theme } from "@/lib/theme";
 import { routes } from "@/lib/routes";
+import { AMIGO_NOMBRE_KEY } from "./perfil/data";
 
 // Hardcoded "already in the network" IDs so the duplicate-block state can be demoed.
 const CEDULAS_EN_RED = ["1020304050", "79845120", "52123987"];
@@ -94,6 +95,11 @@ export function Screen() {
       return;
     }
     setSending(true);
+    try {
+      sessionStorage.setItem(AMIGO_NOMBRE_KEY, nombre.trim());
+    } catch {
+      // storage blocked: the profile falls back to a sample name
+    }
     toast(
       telefono.trim()
         ? `Código enviado por WhatsApp a ${telefono.trim()}`
